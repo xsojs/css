@@ -1,0 +1,46 @@
+{
+    "name": "@xso/css",
+    "version": "0.1.0",
+    "description": "CSS framework of the Remarkable Structures Outflows.",
+    "main": "./dist/xso-css.umd.js",
+    "module": "./dist/xso-css.es.js",
+    "exports": {
+        ".": {
+            "import": "./src/main.js",
+            "require": "./dist/xso-css.umd.js"
+        }
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Eduardo Velasques",
+    "license": "MIT",
+    "repository": "xsojs/css",
+    "keywords": [
+        "react",
+        "vue",
+        "jquery",
+        "css",
+        "less",
+        "sass",
+        "scss",
+        "style",
+        "stylex",
+        "simple",
+        "util",
+        "utility"
+    ],
+    "dependencies": {
+        "@xso/utils": "link:../utils"
+    },
+    "devDependencies": {
+        "vite": "^4.3.9"
+    },
+    "files": [
+        "dist",
+        "src"
+    ]
+}
