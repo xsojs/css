@@ -9,7 +9,7 @@ function className(def) {
 }
 
 function createClass(jsDefinition) {
-  ensureObject(`Class ${jsDefinition}`, jsDefinition);
+  ensureObject(`CSS class ${jsDefinition}`, jsDefinition);
   const theClass = className(jsDefinition);
   if (theClass.reused) {
     return theClass.name;
