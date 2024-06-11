@@ -24,12 +24,12 @@ Here is the official website with the full documentation:
 
 Example of the capabilities supported in the style objects definition:
 
-`style.js`
+`styles.js`
 
 ```javascript
 const MEDIA_QUERY = '@media only screen and (max-width: 768px)';
 
-const style = {
+const styles = {
   container: {
     backgroundColor: 'gray',
     ':hover': {
@@ -65,7 +65,7 @@ const style = {
   }
 };
 
-export default style;
+export default styles;
 ```
 
 Then use it in your React component:
@@ -76,16 +76,16 @@ Then use it in your React component:
 import React, {useState} from 'react';
 
 import css from '@xso/css';
-import style from './style.js';
+import styles from './styles.js';
 
 function Foo() {
     const [active, setActive] = useState(false);
     return (
-        <div {...css(style.container)}>
+        <div className={css(styles.container)}>
             <div>
-                <button {...css(
-                    style.button,
-                    style[`button-${active === true && 'on'}`]
+                <button className={css(
+                    styles.button,
+                    styles[`button-${active === true && 'on'}`]
                 )}
                 onClick={()=> setActive(true)}>
                     Foo
@@ -135,7 +135,7 @@ import tinycolor from "tinycolor2";
 
 const primaryColor = tinycolor("#32a852");
 
-const style = {
+const styles = {
   container: {
     backgroundColor: primaryColor.lighten(50).toString(),
     color: primaryColor.toString(),
@@ -143,5 +143,5 @@ const style = {
   }
 };
 
-export default style;
+export default styles;
 ```
