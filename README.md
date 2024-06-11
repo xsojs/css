@@ -96,7 +96,7 @@ export default Foo;
 
 Here is an integration directly in the raw HTML with pure JavaScript, like this:
 
-```
+```html
 <script src="https://raw.githubusercontent.com/xsojs/css/dist/xso-css.umd.js"></script>
 <script>
 const styles = {
