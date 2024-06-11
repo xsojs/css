@@ -1,7 +1,7 @@
 {
     "name": "@xso/css",
     "version": "0.1.0",
-    "description": "CSS framework of the Remarkable Structures Outflows.",
+    "description": "CSS framework of the XSO.",
     "main": "./dist/xso-css.umd.js",
     "module": "./dist/xso-css.es.js",
     "exports": {
@@ -20,21 +20,11 @@
     "license": "MIT",
     "repository": "xsojs/css",
     "keywords": [
-        "react",
-        "vue",
-        "jquery",
-        "css",
-        "less",
-        "sass",
-        "scss",
-        "style",
-        "stylex",
-        "simple",
-        "util",
-        "utility"
+        "xso",
+        "xsojs"
     ],
     "dependencies": {
-        "@xso/utils": "link:../utils"
+        "@xso/utils": "^0.1.0"
     },
     "devDependencies": {
         "vite": "^4.3.9"
