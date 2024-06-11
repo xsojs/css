@@ -20,7 +20,7 @@ Here is the official website with the full documentation:
 
 ## Install
 
-To start playing with XSS CSS:
+To start playing with XSO CSS:
 
 `npm install -S @xso/css`
 
