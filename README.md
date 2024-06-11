@@ -20,7 +20,19 @@ Here is the official website with the full documentation:
 
 ## Install
 
+To start playing with XSS CSS:
+
 `npm install -S @xso/css`
+
+But better, is to use the PNPM:
+
+`pnpm install @xso/css`
+
+Or if you prefer Yarn:
+
+`yarn add -S @xso/css`
+
+Or even another package manager.
 
 ## How To Use
 
