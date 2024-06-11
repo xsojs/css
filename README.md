@@ -1,6 +1,8 @@
 # @xso/css
 
-XSO CSS works like [StyleX](https://stylexjs.com/) but supports [LESS](https://lesscss.org/) and [SASS/SCSS](https://sass-lang.com/) logic structures.
+XSO has your own CSS abstraction, is like StyleX, but more simple to use and dynamic, and supports LESS and SASS/SCSS hierarchy structures-like.
+
+> XSO CSS works like StyleX but supports LESS and SASS/SCSS logic structures.
 
 This pure JavaScript framework brings a new way to build your CSS, in a much more practical way, less verbose, without limitations, and with no compilations.
 
