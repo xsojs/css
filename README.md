@@ -1,8 +1,6 @@
-![Logo](https://raw.githubusercontent.com/rssojs/rsso/main/assets/logo.svg)
+# @xso/css
 
-# `R`un-time `S`tyle `S`heet `O`bjects
-
-RSSO is like [StyleX](https://stylexjs.com/) but supports [LESS](https://lesscss.org/) and [SASS/SCSS](https://sass-lang.com/) logic structures.
+XSO CSS works like [StyleX](https://stylexjs.com/) but supports [LESS](https://lesscss.org/) and [SASS/SCSS](https://sass-lang.com/) logic structures.
 
 This pure JavaScript framework brings a new way to build your CSS, in a much more practical way, less verbose, without limitations, and with no compilations.
 
@@ -10,11 +8,15 @@ All CSS is generated on run-time and injected into `<style>`s in the HTML.
 
 The style sheet is implemented in fully raw JavaScript Objects.
 
-Generates CSS classes within [React](https://react.dev/) Components.
+Easy to use to generate CSS classes within any framework, like React, Vue, Svelte, and more.
+
+## Install
+
+`npm install -S @xso/css`
 
 ## How To Use
 
-Example of my RSSO style objects definition:
+Example of the capabilities supported in the style objects definition:
 
 `style.js`
 
@@ -67,7 +69,7 @@ Then use it in your React component:
 ```javascript
 import React, {useState} from 'react';
 
-import css from '../../common/RSSO';
+import css from '@xso/css';
 import style from './style.js';
 
 function Foo() {
@@ -90,9 +92,30 @@ function Foo() {
 export default Foo;
 ```
 
-## Integrations
+## Vanilla JS in HTML
 
-You can integrate with any other framework to add facilities.
+Here is an integration directly in the raw HTML with pure JavaScript, like this:
+
+```
+<script src="https://raw.githubusercontent.com/xsojs/css/dist/xso-css.umd.js"></script>
+<script>
+const styles = {
+    myFirstStyle: {
+        fontSize: '16px',
+        border: '3px solid blue',
+        backgroundColor: 'red',
+        color: 'yellow',
+    }
+}
+document.getElementById('myElement').className = css(
+    styles.myFirstStyle
+);
+</script>
+```
+
+## Easy to integrate with others dependencies
+
+You can integrate with any other dependency to add facilities.
 
 A good one is the [TinyColor](https://github.com/bgrins/TinyColor) because have the power to manipulate color variants easily.
 
