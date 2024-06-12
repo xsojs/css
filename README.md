@@ -4,7 +4,7 @@ XSO has your own CSS abstraction, is like StyleX, but more simple to use and dyn
 
 > XSO CSS works like StyleX but supports LESS and SASS/SCSS logic structures.
 
-This pure JavaScript framework brings a new way to build your CSS, in a much more practical way, less verbose, without limitations, and with no compilations.
+This pure JavaScript framework brings a new way to build your CSS, in a much more practical way, less verbose, without limitations, and with **no compilations**.
 
 All CSS is generated on run-time and injected into `<style>`s in the HTML.
 
