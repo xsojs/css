@@ -1,176 +1,187 @@
-const y = {
+const g = {
   vanilla: !0,
   react: !1
 };
-function l(e) {
+function i(e) {
   if (e) {
-    for (const s of Object.keys(y))
-      y[s] = !1;
-    y[e] = !0;
+    for (const n of Object.keys(g))
+      g[n] = !1;
+    g[e] = !0;
     return;
   }
-  for (const s of Object.keys(y))
-    if (y[s])
-      return s;
+  for (const n of Object.keys(g))
+    if (g[n])
+      return n;
   return null;
 }
-l.vanilla = () => l() == "vanilla";
-l.react = () => l() == "react";
-function $(e, s) {
-  if (typeof s != "object" || s == null || Array.isArray(s))
-    throw new Error(`${e} is ${typeof s} and not a valid object.`);
+i.vanilla = () => i() == "vanilla";
+i.react = () => i() == "react";
+function r(e, n, s, c) {
+  if (r.null == n)
+    throw new Error(`${s} is null and not a valid ${e}.`);
+  if (r.invalid == n)
+    throw new Error(`${s} is ${typeof c} and not a valid ${e}.`);
 }
-function S(e, s, c) {
-  const n = JSON.stringify(c), r = s.find((t) => t.def == n);
-  if (r)
-    return { name: r.name, reused: !0 };
+r.array = "array";
+r.function = "function";
+r.object = "object";
+r.string = "string";
+r.null = 0;
+r.invalid = 1;
+function h(e, n) {
+  n == null && r(r.object, r.null, e, n), (typeof n != "object" || Array.isArray(n)) && r(r.object, r.invalid, e, n);
+}
+function E(e, n, s) {
+  const c = JSON.stringify(s), a = n.find((t) => t.def == c);
+  if (a)
+    return { name: a.name, reused: !0 };
   for (; ; ) {
     const t = "xso_" + e + "_" + (Math.random() + 1).toString(36).substring(2);
-    if (s.find((a) => a.name == t))
+    if (n.find((l) => l.name == t))
       continue;
-    const i = { name: t, def: n };
-    return s.push(i), { name: i.name, reused: !1 };
+    const m = { name: t, def: c };
+    return n.push(m), { name: m.name, reused: !1 };
   }
 }
 const C = /[A-Z]/g;
-function b(e) {
-  return e.replace(C, (s) => "-" + s.toLowerCase());
+function S(e) {
+  return e.replace(C, (n) => "-" + n.toLowerCase());
 }
-function h(e) {
+function b(e) {
   return e == "&" || e == ":" || e == "." || e == " " || e == ">" || e == "+" || e == "~";
 }
-function g(e, s) {
-  let c = `${e} {
+function p(e, n) {
+  let s = `${e} {
 `;
-  const n = {
+  const c = {
     selectors: [],
     medias: []
-  }, r = {
+  }, a = {
     selectors: [],
     medias: []
   };
-  for (const t of Object.keys(s)) {
-    const i = b(t), a = t.length > 0 ? t.substring(0, 1) : "";
-    if (h(a)) {
-      $(t, s[t]);
-      const o = e + (a == "&" ? t.substring(1) : (a == ":" || a == "." || a == " " ? "" : " ") + t);
-      n.selectors.push({
+  for (const t of Object.keys(n)) {
+    const m = S(t), l = t.length > 0 ? t.substring(0, 1) : "";
+    if (b(l)) {
+      h(t, n[t]);
+      const o = e + (l == "&" ? t.substring(1) : (l == ":" || l == "." || l == " " ? "" : " ") + t);
+      c.selectors.push({
         selector: o,
-        css: g(o, s[t])
+        css: p(o, n[t])
       });
-    } else if (a == "@")
-      n.medias.push({
+    } else if (l == "@")
+      c.medias.push({
         media: t,
-        css: g(e, s[t])
+        css: p(e, n[t])
       });
-    else if (typeof s[t] == "object" && s[t] !== null)
-      for (const o of Object.keys(s[t])) {
-        const m = `  ${i}: ${s[t][o]};
+    else if (typeof n[t] == "object" && n[t] !== null)
+      for (const o of Object.keys(n[t])) {
+        const f = `  ${m}: ${n[t][o]};
 `;
         if (o == "default" || o == "def" || o == "_" || o == "") {
-          c += m;
+          s += f;
           continue;
         }
         const u = o.length > 0 ? o.substring(0, 1) : "";
-        if (h(u)) {
-          const f = r.selectors.find((d) => d.selector == o);
-          if (f)
-            f.css += m;
+        if (b(u)) {
+          const d = a.selectors.find((y) => y.selector == o);
+          if (d)
+            d.css += f;
           else {
-            const d = e + (u == "&" ? o.substring(1) : (u == ":" || u == "." || u == " " ? "" : " ") + o);
-            r.selectors.push({
-              selector: d,
-              css: m
+            const y = e + (u == "&" ? o.substring(1) : (u == ":" || u == "." || u == " " ? "" : " ") + o);
+            a.selectors.push({
+              selector: y,
+              css: f
             });
           }
         } else if (u == "@") {
-          const f = r.medias.find((d) => d.media == o);
-          f ? f.css += m : r.medias.push({
+          const d = a.medias.find((y) => y.media == o);
+          d ? d.css += f : a.medias.push({
             media: o,
-            css: m
+            css: f
           });
         }
       }
     else
-      c += `  ${i}: ${s[t]};
+      s += `  ${m}: ${n[t]};
 `;
   }
-  c += "}";
-  for (const t of r.selectors)
-    c += `
+  s += "}";
+  for (const t of a.selectors)
+    s += `
 ${e}${t.selector} {
 ${t.css}}`;
-  for (const t of r.medias)
-    c += `
+  for (const t of a.medias)
+    s += `
 ${t.media} {
 ${e} {
 ${t.css}}
 }`;
-  for (const t of n.selectors)
-    c += `
+  for (const t of c.selectors)
+    s += `
 ${t.css}`;
-  for (const t of n.medias)
-    c += `
+  for (const t of c.medias)
+    s += `
 ${t.media} {
 ${t.css}}`;
-  return c;
+  return s;
 }
 const T = [];
-function E(e) {
-  return S("c", T, e);
-}
-function N(e) {
-  $(`Class ${e}`, e);
-  const s = E(e);
-  if (s.reused)
-    return s.name;
-  const c = g("." + s.name, e), n = document.createElement("style");
-  return n.type = "text/css", n.id = s.name, n.innerHTML = c, document.getElementsByTagName("head")[0].appendChild(n), s.name;
-}
-function O(e, s) {
-  $(`Definition ${e} > ${s}`, s);
-  const c = g(e, s), n = document.createElement("style");
-  n.type = "text/css", n.innerHTML = c, document.getElementsByTagName("head")[0].appendChild(n);
-}
 function j(e) {
-  const s = document.createElement("style");
-  s.type = "text/css", s.innerHTML = `@import ${e};`, document.getElementsByTagName("head")[0].appendChild(s);
+  return E("c", T, e);
 }
 function v(e) {
-  $(`Font-face ${e}`, e);
-  let s = `@font-face {
-`;
-  for (const n of Object.keys(e)) {
-    const r = b(n);
-    s += `  ${r}: ${e[n]};
-`;
-  }
-  s += "}";
-  const c = document.createElement("style");
+  h(`CSS class ${e}`, e);
+  const n = j(e);
+  if (n.reused)
+    return n.name;
+  const s = p("." + n.name, e), c = document.createElement("style");
+  return c.type = "text/css", c.id = n.name, c.innerHTML = s, document.getElementsByTagName("head")[0].appendChild(c), n.name;
+}
+function N(e, n) {
+  h(`Definition ${e} > ${n}`, n);
+  const s = p(e, n), c = document.createElement("style");
   c.type = "text/css", c.innerHTML = s, document.getElementsByTagName("head")[0].appendChild(c);
 }
-function p() {
+function O(e) {
+  const n = document.createElement("style");
+  n.type = "text/css", n.innerHTML = `@import ${e};`, document.getElementsByTagName("head")[0].appendChild(n);
+}
+function w(e) {
+  h(`Font-face ${e}`, e);
+  let n = `@font-face {
+`;
+  for (const c of Object.keys(e)) {
+    const a = S(c);
+    n += `  ${a}: ${e[c]};
+`;
+  }
+  n += "}";
+  const s = document.createElement("style");
+  s.type = "text/css", s.innerHTML = n, document.getElementsByTagName("head")[0].appendChild(s);
+}
+function $() {
   if (arguments.length == 0)
     return null;
   const e = [];
-  for (const s of arguments)
-    e.push(N(s));
-  if (l.vanilla())
+  for (const n of arguments)
+    e.push(v(n));
+  if (i.vanilla())
     return e.join(" ");
-  if (l.react())
+  if (i.react())
     return { className: e.join(" ") };
 }
-p.mode = l;
-p.def = (e, s) => {
-  O(e, s);
+$.mode = i;
+$.def = (e, n) => {
+  N(e, n);
 };
-p.import = (e) => {
-  j(e);
+$.import = (e) => {
+  O(e);
 };
-p.fontFace = (e) => {
-  v(e);
+$.fontFace = (e) => {
+  w(e);
 };
-p.keyframes = (e) => createKeyframes(e);
+$.keyframes = (e) => createKeyframes(e);
 export {
-  p as default
+  $ as default
 };
