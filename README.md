@@ -117,14 +117,49 @@ export default Foo;
 Here is an integration directly in the raw HTML with pure JavaScript, like this:
 
 ```html
-<script src="https://raw.githubusercontent.com/xsojs/css/dist/xso-css.umd.js"></script>
+<!--
+Here is the bundle JS file to download:
+https://github.com/xsojs/css/blob/main/dist/xso-css.umd.js
+-->
+<script src="xso-css.umd.js"></script>
+
+<div id="myElement">
+    XSO Style
+    <h2>Demo</h2>
+    <div class="inner-container">
+        <p>This works like LESS, SASS/SCSS, or StyleX, but directly in JavaScript vanilla.</p>
+        <button>Click Me</button>
+    </div>
+</div>
+
 <script>
 const styles = {
     myFirstStyle: {
+        padding: '20px',
         fontSize: '16px',
         border: '3px solid blue',
         backgroundColor: 'red',
-        color: 'yellow',
+        '> h2': {
+            backgroundColor: 'orange'
+        },
+        '& div.inner-container': {
+            margin: '20px',
+            padding: '20px',
+            backgroundColor: 'white'
+        },
+        ' p': {
+            padding: '10px',
+            border: '2px solid black'
+        },
+        '> div > button': {
+            border: 'none',
+            backgroundColor: 'green',
+            color: 'white',
+            padding: '5px',
+            ':hover': {
+                backgroundColor: 'blue',
+            }
+        }
     }
 }
 document.getElementById('myElement').className = css(

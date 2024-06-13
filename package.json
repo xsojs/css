@@ -1,6 +1,6 @@
 {
     "name": "@xso/css",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "CSS framework of the XSO.",
     "main": "./dist/xso-css.umd.js",
     "module": "./dist/xso-css.es.js",
