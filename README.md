@@ -194,3 +194,26 @@ const styles = {
 
 export default styles;
 ```
+
+## Name and BaseName
+
+The CSS class name is auto-generated and has a random unique code.
+
+You can specify the `name` you want or even the name's prefix using the `base name`.
+
+```javascript
+const styles = {
+  container: {
+    baseName: 'my-com',
+    ...
+  },
+  title: {
+    name: 'my-com__title',
+    ...
+  }
+}
+```
+
+Using the base name the random unique code will be added automatically.
+
+Using the name you need to make sure it is unique globally.

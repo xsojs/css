@@ -17,6 +17,9 @@ function selectorWriter(selector, def) {
         medias: [],
     };
     for (const key of Object.keys(def)) {
+        if (key == 'name' || key == 'baseName') {
+            continue;
+        }
         const cssKey = jsKeyToCSS(key);
         const keyPrefix = key.length > 0 ? key.substring(0, 1) : '';
         if (isSelectorPrefix(keyPrefix)) {
