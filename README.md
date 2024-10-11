@@ -199,7 +199,7 @@ export default styles;
 
 The CSS class name is auto-generated and has a random unique code.
 
-You can specify the `name` you want or even the name's prefix using the `base name`.
+But you can specify the `name` you want or even the name's prefix using the `base name`.
 
 ```javascript
 const styles = {
