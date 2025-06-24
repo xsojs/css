@@ -16,88 +16,92 @@ function i(e) {
 }
 i.vanilla = () => i() == "vanilla";
 i.react = () => i() == "react";
-function r(e, n, s, c) {
-  if (r.null == n)
+function a(e, n, s, c) {
+  if (a.null == n)
     throw new Error(`${s} is null and not a valid ${e}.`);
-  if (r.invalid == n)
+  if (a.invalid == n)
     throw new Error(`${s} is ${typeof c} and not a valid ${e}.`);
 }
-r.array = "array";
-r.function = "function";
-r.object = "object";
-r.string = "string";
-r.null = 0;
-r.invalid = 1;
-function h(e, n) {
-  n == null && r(r.object, r.null, e, n), (typeof n != "object" || Array.isArray(n)) && r(r.object, r.invalid, e, n);
+a.array = "array";
+a.function = "function";
+a.object = "object";
+a.string = "string";
+a.null = 0;
+a.invalid = 1;
+function b(e, n) {
+  n == null && a(a.object, a.null, e, n), (typeof n != "object" || Array.isArray(n)) && a(a.object, a.invalid, e, n);
 }
 function E(e, n, s) {
-  const c = JSON.stringify(s), a = n.find((t) => t.def == c);
-  if (a)
-    return { name: a.name, reused: !0 };
-  for (; ; ) {
-    const t = "xso_" + e + "_" + (Math.random() + 1).toString(36).substring(2);
-    if (n.find((l) => l.name == t))
-      continue;
-    const m = { name: t, def: c };
-    return n.push(m), { name: m.name, reused: !1 };
-  }
+  const c = JSON.stringify(s), l = n.find((o) => o.def == c);
+  if (l)
+    return { name: l.name, reused: !0 };
+  let t = s.name;
+  if (t)
+    for (let o = 0; o < n.length; o++)
+      n[o].name == t && (n.splice(o, 1), o--);
+  else
+    for (; t = s.baseName || "xso_" + e, t += "_" + (Math.random() + 1).toString(36).substring(2), !!n.find((o) => o.name == t); )
+      ;
+  const m = { name: t, def: c };
+  return n.push(m), { name: m.name, reused: !1 };
 }
-const C = /[A-Z]/g;
+const N = /[A-Z]/g;
 function S(e) {
-  return e.replace(C, (n) => "-" + n.toLowerCase());
+  return e.replace(N, (n) => "-" + n.toLowerCase());
 }
-function b(e) {
+function h(e) {
   return e == "&" || e == ":" || e == "." || e == " " || e == ">" || e == "+" || e == "~";
 }
-function p(e, n) {
+function $(e, n) {
   let s = `${e} {
 `;
   const c = {
     selectors: [],
     medias: []
-  }, a = {
+  }, l = {
     selectors: [],
     medias: []
   };
   for (const t of Object.keys(n)) {
-    const m = S(t), l = t.length > 0 ? t.substring(0, 1) : "";
-    if (b(l)) {
-      h(t, n[t]);
-      const o = e + (l == "&" ? t.substring(1) : (l == ":" || l == "." || l == " " ? "" : " ") + t);
+    if (t == "name" || t == "baseName")
+      continue;
+    const m = S(t), o = t.length > 0 ? t.substring(0, 1) : "";
+    if (h(o)) {
+      b(t, n[t]);
+      const r = e + (o == "&" ? t.substring(1) : (o == ":" || o == "." || o == " " ? "" : " ") + t);
       c.selectors.push({
-        selector: o,
-        css: p(o, n[t])
+        selector: r,
+        css: $(r, n[t])
       });
-    } else if (l == "@")
+    } else if (o == "@")
       c.medias.push({
         media: t,
-        css: p(e, n[t])
+        css: $(e, n[t])
       });
     else if (typeof n[t] == "object" && n[t] !== null)
-      for (const o of Object.keys(n[t])) {
-        const f = `  ${m}: ${n[t][o]};
+      for (const r of Object.keys(n[t])) {
+        const f = `  ${m}: ${n[t][r]};
 `;
-        if (o == "default" || o == "def" || o == "_" || o == "") {
+        if (r == "default" || r == "def" || r == "_" || r == "") {
           s += f;
           continue;
         }
-        const u = o.length > 0 ? o.substring(0, 1) : "";
-        if (b(u)) {
-          const d = a.selectors.find((y) => y.selector == o);
+        const u = r.length > 0 ? r.substring(0, 1) : "";
+        if (h(u)) {
+          const d = l.selectors.find((y) => y.selector == r);
           if (d)
             d.css += f;
           else {
-            const y = e + (u == "&" ? o.substring(1) : (u == ":" || u == "." || u == " " ? "" : " ") + o);
-            a.selectors.push({
+            const y = e + (u == "&" ? r.substring(1) : (u == ":" || u == "." || u == " " ? "" : " ") + r);
+            l.selectors.push({
               selector: y,
               css: f
             });
           }
         } else if (u == "@") {
-          const d = a.medias.find((y) => y.media == o);
-          d ? d.css += f : a.medias.push({
-            media: o,
+          const d = l.medias.find((y) => y.media == r);
+          d ? d.css += f : l.medias.push({
+            media: r,
             css: f
           });
         }
@@ -107,11 +111,11 @@ function p(e, n) {
 `;
   }
   s += "}";
-  for (const t of a.selectors)
+  for (const t of l.selectors)
     s += `
 ${e}${t.selector} {
 ${t.css}}`;
-  for (const t of a.medias)
+  for (const t of l.medias)
     s += `
 ${t.media} {
 ${e} {
@@ -126,62 +130,62 @@ ${t.media} {
 ${t.css}}`;
   return s;
 }
-const T = [];
-function j(e) {
-  return E("c", T, e);
+const C = [];
+function T(e) {
+  return E("c", C, e);
 }
-function v(e) {
-  h(`CSS class ${e}`, e);
-  const n = j(e);
+function j(e) {
+  b(`CSS class ${e}`, e);
+  const n = T(e);
   if (n.reused)
     return n.name;
-  const s = p("." + n.name, e), c = document.createElement("style");
+  const s = $("." + n.name, e), c = document.createElement("style");
   return c.type = "text/css", c.id = n.name, c.innerHTML = s, document.getElementsByTagName("head")[0].appendChild(c), n.name;
 }
-function N(e, n) {
-  h(`Definition ${e} > ${n}`, n);
-  const s = p(e, n), c = document.createElement("style");
+function v(e, n) {
+  b(`Definition ${e} > ${n}`, n);
+  const s = $(e, n), c = document.createElement("style");
   c.type = "text/css", c.innerHTML = s, document.getElementsByTagName("head")[0].appendChild(c);
 }
 function O(e) {
   const n = document.createElement("style");
   n.type = "text/css", n.innerHTML = `@import ${e};`, document.getElementsByTagName("head")[0].appendChild(n);
 }
-function w(e) {
-  h(`Font-face ${e}`, e);
+function k(e) {
+  b(`Font-face ${e}`, e);
   let n = `@font-face {
 `;
   for (const c of Object.keys(e)) {
-    const a = S(c);
-    n += `  ${a}: ${e[c]};
+    const l = S(c);
+    n += `  ${l}: ${e[c]};
 `;
   }
   n += "}";
   const s = document.createElement("style");
   s.type = "text/css", s.innerHTML = n, document.getElementsByTagName("head")[0].appendChild(s);
 }
-function $() {
+function p() {
   if (arguments.length == 0)
     return null;
   const e = [];
   for (const n of arguments)
-    e.push(v(n));
+    e.push(j(n));
   if (i.vanilla())
     return e.join(" ");
   if (i.react())
     return { className: e.join(" ") };
 }
-$.mode = i;
-$.def = (e, n) => {
-  N(e, n);
+p.mode = i;
+p.def = (e, n) => {
+  v(e, n);
 };
-$.import = (e) => {
+p.import = (e) => {
   O(e);
 };
-$.fontFace = (e) => {
-  w(e);
+p.fontFace = (e) => {
+  k(e);
 };
-$.keyframes = (e) => createKeyframes(e);
+p.keyframes = (e) => createKeyframes(e);
 export {
-  $ as default
+  p as default
 };
